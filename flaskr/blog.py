@@ -6,7 +6,7 @@ from werkzeug.exceptions import abort
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
-bp = Blueprint('blog', __name__)
+bp = Blueprint('blog', __name__, url_prefix='/blog')
 
 @bp.route('/')
 def index():
@@ -75,7 +75,7 @@ def update(id):
         if error is not None:
             flash(error)
         else:
-            db = get_db
+            db = get_db()
             db.execute(
                 'UPDATE post SET title = ?, body = ?'
                 ' WHERE id = ?',
